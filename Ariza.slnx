@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Ariza.Api/Ariza.Api.csproj" />
+    <Project Path="src/Ariza.Core/Ariza.Core.csproj" />
+    <Project Path="src/Ariza.Infrastructure/Ariza.Infrastructure.csproj" />
+    <Project Path="src/Ariza.Service/Ariza.Service.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ariza.Service.Tests/Ariza.Service.Tests.csproj" />
+    <Project Path="tests/Ariza.Infrastructure.Tests/Ariza.Infrastructure.Tests.csproj" />
+  </Folder>
+</Solution>
