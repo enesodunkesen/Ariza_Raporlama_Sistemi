@@ -1,29 +1,52 @@
-# Arıza Bildirim ve Yönetim Sistemi - Backend
+# Arıza Bildirim ve Yönetim Sistemi
 
-Bu repo, .NET 8 tabanlı bir RESTful API backend projesinin katmanlı iskeletini içerir.
+Bu proje, kurum içi veya genel kullanım için tasarlanmış kapsamlı bir Arıza Bildirim ve Yönetim Sistemi çözümüdür. Modern teknolojiler kullanılarak geliştirilmiş olup, API, Web Dashboard ve Mobil Uygulama olmak üzere üç ana bileşenden oluşmaktadır.
 
-## Mevcut Durum
-- `Ariza.Core`: Entity'ler, enum'lar ve repository / unit of work sözleşmeleri.
-- `Ariza.Infrastructure`: `AppDbContext`, `GenericRepository`, `UnitOfWork`.
-- `Ariza.Service`: DTO'lar, servis sözleşmeleri ve temel `ServiceResult` tipi.
-- `Ariza.Api`: JWT, Identity, controller'lar, middleware ve ilk veri seed altyapısı.
+## Proje Bileşenleri
 
-## Veritabanı
-- İlk EF Core migration oluşturuldu: `src/Ariza.Infrastructure/Data/Migrations/20260602101320_InitialCreate.cs`
-- Başlangıçta `User` ve `Admin` rollerinin yanı sıra opsiyonel admin kullanıcısı `SeedAdmin` ayarlarıyla oluşturulur.
+### 1. Backend (.NET 8 REST API)
+- **Konum:** `/src` ve `/tests`
+- **Açıklama:** Sistemin temel iş mantığını, veritabanı işlemlerini ve kimlik doğrulamasını (JWT, Identity) yönetir. Katmanlı mimari (Core, Infrastructure, Service, Api) kullanılarak geliştirilmiştir. `wwwroot/uploads/reports` altına görsel yükleme desteği içerir.
 
-## Sonraki Adım
-- `dotnet ef database update` ile veritabanını oluşturmak.
-- Gerçek iş kuralları için repository bazlı filtreleri ve daha sıkı validation kurallarını eklemek.
-- İsteğe bağlı olarak unit/integration test katmanını kurmak.
+### 2. Frontend (Web Dashboard)
+- **Konum:** `/frontend`
+- **Açıklama:** Yöneticiler ve yetkili personel için tasarlanmış, arızaların takip edildiği, istatistiklerin görüntülendiği ve kullanıcı yönetiminin yapıldığı modern web arayüzü. React, TypeScript ve Vite ile geliştirilmiştir.
 
-## Derleme
+### 3. Mobil (Kullanıcı Uygulaması)
+- **Konum:** `/mobile`
+- **Açıklama:** Son kullanıcıların sahada karşılaştıkları arızaları kolayca raporlayabilecekleri, fotoğraf ekleyebilecekleri ve mevcut taleplerinin durumunu takip edebilecekleri mobil uygulama. React Native ve Expo kullanılarak geliştirilmiştir.
+
+## Kurulum ve Çalıştırma
+
+### 1. Veritabanı Kurulumu (Backend)
+Backend projesi Entity Framework Core kullanmaktadır. Veritabanını oluşturmak için:
 ```powershell
-Set-Location 'c:\Users\Administrator\source\copilot\arıza_rapor_sistemi'
-dotnet build .\Ariza.slnx
+Set-Location .\src\Ariza.Api
+dotnet ef database update --project ..\Ariza.Infrastructure
 ```
 
-## API
-- `Ariza.Api`: JWT, Identity, controllers, global exception middleware ve dosya yükleme desteği içerir.
-- Görsel yüklemeler `wwwroot/uploads/reports` altına kaydedilir ve `UseStaticFiles` ile erişilebilir hale gelir.
+### 2. Backend'i Çalıştırma
+```powershell
+Set-Location .\src\Ariza.Api
+dotnet run
 ```
+*(Alternatif olarak kök dizindeyken `dotnet build .\Ariza.slnx` ile tüm .NET projelerini derleyebilirsiniz)*
+
+### 3. Frontend'i Çalıştırma
+```powershell
+Set-Location .\frontend
+npm install
+npm run dev
+```
+
+### 4. Mobil Uygulamayı Çalıştırma
+```powershell
+Set-Location .\mobile
+npm install
+npx expo start
+```
+
+## Teknolojiler
+- **Backend:** .NET 8, C#, EF Core, SQL Server, ASP.NET Core Identity, JWT, xUnit
+- **Frontend:** React 18, TypeScript, Vite, Tailwind CSS (vb.)
+- **Mobil:** React Native, Expo, TypeScript, Expo Router
